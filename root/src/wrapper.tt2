@@ -1,40 +1,202 @@
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-    <title>[% template.title or "My Catalyst App!" %]</title>
-    <link rel="stylesheet" href="[% c.uri_for('/static/css/main.css') %]" />
-    </head>
-    
-    <body class="yui-skin-sam">
-    <div id="outer">
-    <div id="header">
-        [%# Your logo could go here -%]
-        <img src="[% c.uri_for('/static/images/btn_88x31_powered.png') %]" />
-        [%# Insert the page title -%]
-        <h1>[% template.title or site.title %]</h1>
-    </div>
-    
-    <div id="bodyblock">
-    <div id="menu">
-        Navigation:
-        <ul>
-            <li><a href="[% c.uri_for('/candidates/list') %]">Home</a></li>
-            <li><a href="[% c.uri_for('/') %]" title="Catalyst Welcome Page">Welcome</a></li>
+<html>
+<head>
+
+    <title>[% template.title or "Perl Jobs!" %]</title>
+
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset-fonts-grids/reset-fonts-grids.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/menu/assets/skins/sam/menu.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/resize/assets/skins/sam/resize.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/layout/assets/skins/sam/layout.css" />
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/utilities/utilities.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/container/container_core-min.js"></script> 
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/menu/menu-min.js"></script> 
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/resize/resize-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/layout/layout-min.js"></script>
+
+<style>
+    #productsandservices2 {        
+        position: static;
+    }
+
+    /*
+        For IE 6: trigger "haslayout" for the anchor elements in the root Menu by 
+        setting the "zoom" property to 1.  This ensures that the selected state of 
+        MenuItems doesn't get dropped when the user mouses off of the text node of 
+        the anchor element that represents a MenuItem's text label.
+    */
+
+    #productsandservices2 .yuimenuitemlabel {
+        _zoom: 1;
+    }
+
+    #productsandservices2 .yuimenu .yuimenuitemlabel {
+        _zoom: normal;
+    }
+    /*
+        Turn off the border on the top unit since Menu has it's own border
+    */
+    .yui-skin-sam .yui-layout .yui-layout-unit-top div.yui-layout-bd {
+        border: none;
+    }
+    /*
+        Change some of the Menu colors
+    */
+    .yui-skin-sam .yuimenu .bd {
+        background-color: #F2F2F2;
+    }
+    #productsandservices2 .bd {
+        border: none;
+    }
+    #productsandservices2 .bd .first-of-type .bd {
+        border: 1px solid #808080;
+    }
+</style>
+
+
+
+</head>
+
+<body class=" yui-skin-sam">
+
+<div id="top1"> 
+        <h1>Perl Jobs</h1>
+        <h2>[% template.title or site.title %]</h2>
+</div>
+
+<div id="left1">
+    <div id="productsandservices2" class="yuimenu">
+    <div class="bd">
+        <ul class="first-of-type">
+
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/candidates') %]">Candidates</a>
+            </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/companies') %]">Companies</a>
+            </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/contacts') %]">Contacts</a>
+            </li>
+
         </ul>
-    </div><!-- end menu -->
-    
-    <div id="content">
-        [%# Status and error messages %]
-        <span class="message">[% status_msg %]</span>
-        <span class="error">[% error_msg %]</span>
-        [%# This is where TT will stick all of your template's contents. -%]
-        [% content %]
-    </div><!-- end content -->
-    </div><!-- end bodyblock -->
-    
-    <div id="footer">Copyright (c) your name goes here</div>
-    </div><!-- end outer -->
-    
-    </body>
-    </html>
+    </div>
+
+
+</div>
+<div id="center1" align="left">
+    [% content %]
+</div>
+<div id="bottom1"> Footer </div>
+
+
+
+<script language="JavaScript">
+(function() {
+    var Dom = YAHOO.util.Dom,
+        Event = YAHOO.util.Event;
+
+        var initLeftMenu = function() {
+
+                var oMenu = new YAHOO.widget.Menu("productsandservices2", { 
+                                                        position: "static", 
+                                                        hidedelay:  750, 
+                                                        lazyload: true,
+                                                            effect: { 
+                                                                effect: YAHOO.widget.ContainerEffect.FADE,
+                                                                duration: 0.25
+                                                            } 
+                                                        });
+
+/*
+We can add submenus later if we need them.
+                var aSubmenuData = [
+                
+                    {
+                        id: "communication2", 
+                        itemdata: [ 
+                            { text: "360", url: "http://360.yahoo.com" },
+                            {
+                                text: "PIM", 
+                                submenu: { 
+                                            id: "pim2", 
+                                            itemdata: [
+                                                { text: "Yahoo! Mail", url: "http://mail.yahoo.com" },
+                                                { text: "Yahoo! Notepad", url: "http://notepad.yahoo.com" }
+                                            ] 
+                                        }
+                            
+                            }, 
+                            { text: "Member Directory", url: "http://members.yahoo.com" },
+                            { text: "Flickr Photo Sharing", url: "http://www.flickr.com" },
+                        ]
+                    },
+
+                    {
+                        id: "shopping2", 
+                        itemdata: [
+                            { text: "Auctions", url: "http://auctions.shopping.yahoo.com" },
+                            { text: "Autos", url: "http://autos.yahoo.com" },
+                            { text: "Classifieds", url: "http://classifieds.yahoo.com" },
+                            { text: "Flowers & Gifts", url: "http://shopping.yahoo.com/b:Flowers%20%26%20Gifts:20146735" },
+                            { text: "Real Estate", url: "http://realestate.yahoo.com" },
+                            { text: "Travel", url: "http://travel.yahoo.com" },
+                            { text: "Wallet", url: "http://wallet.yahoo.com" },
+                            { text: "Yellow Pages", url: "http://yp.yahoo.com" }                    
+                        ]    
+                    },
+                    
+                ];
+*/
+
+                // Subscribe to the Menu instance's "beforeRender" event
+
+                oMenu.subscribe("beforeRender", function () {
+
+                    if (this.getRoot() == this) {
+
+                        this.getItem(0).cfg.setProperty("submenu", aSubmenuData[0]);
+                        this.getItem(1).cfg.setProperty("submenu", aSubmenuData[1]);
+                        this.getItem(2).cfg.setProperty("submenu", aSubmenuData[2]);
+                        this.getItem(3).cfg.setProperty("submenu", aSubmenuData[3]);
+
+                    }
+
+                });
+                
+
+                /*
+                     Call the "render" method with no arguments since the 
+                     markup for this Menu instance is already exists in the page.
+                */
+
+                oMenu.render();
+        };
+
+
+    Event.onDOMReady(function() {
+        var layout = new YAHOO.widget.Layout({
+            units: [
+                { position: 'top', height: 28, body: 'top1', scroll: null, zIndex: 2 },
+                { position: 'bottom', height: 30, body: 'bottom1' },
+                { position: 'left', header: 'Menu', width: 200, body: 'left1', gutter: '5', scroll: null, zIndex: 1 },
+                { position: 'center', body: 'center1', gutter: '5 0' }
+            ]
+        });
+        
+        layout.on('render', function() {
+            YAHOO.util.Event.onContentReady("productsandservices2", initLeftMenu);        
+        });
+        
+        layout.render();
+    });
+})();
+
+
+</script>
+
+
+
+</body>
+</html>

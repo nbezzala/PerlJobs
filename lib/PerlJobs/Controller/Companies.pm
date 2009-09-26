@@ -84,15 +84,18 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
     $c->response->body($return_text) unless $qs;
 
     
-    my @companies = $c->model('DB::Company')->search_like( { name => $qs } );
-    $c->log->debug("*** INSIDE list METHOD *** $#companies");
-    return 1 unless ( $#companies > 0 );
-        
-    foreach my $company (@companies){
-        $return_text .= $company->name . "\t" . $company->id . "\n";
-    }
+#    my @companies = $c->model('DB::Company')->search_like( { name => $qs } );
+#    $c->log->debug("*** INSIDE list METHOD *** $#companies");
+#    return 1 unless ( $#companies > 0 );
+#        
+#    foreach my $company (@companies){
+#        $return_text .= $company->name . "\t" . $company->id . "\n";
+#    }
+#
+#    $c->response->body($return_text);
+    $c->stash->{companies} = [$c->model('DB::Company')->search_like({name => $qs})];
+    $c->stash->{template} = 'companies/list.tt2';
 
-    $c->response->body($return_text);
 }
 
 
