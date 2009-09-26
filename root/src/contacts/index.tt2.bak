@@ -1,0 +1,19 @@
+    [% META title = 'Contact List' -%]
+    
+    <table>
+    <tr>
+	<th>ID</th>
+	<th>Full Name</th>
+	<th>Company ID</th>
+	<th>Designation</th>
+    </tr>
+    [% # Display each candidate in a table row %]
+    [% FOREACH contact IN contacts -%]
+      <tr>
+        <td>[% contact.id %]</td>
+        <td>[% contact.full_name %]</td>
+	<td>[% contact.company_list %]</td>
+        <td>[% contact.designation %]</td>
+      </tr>
+    [% END -%]
+    </table>

@@ -1,0 +1,102 @@
+[% META title = 'Manual Form Contact Create' -%]
+
+
+    <form method="post" action="[% c.uri_for('form_create_do') %]">
+    <table>
+      <tr><td>Full Name:</td><td><input type="text" name="full_name" value="[% contact.user_id.full_name %]" ></td></tr>
+      <tr><td>First Name:</td><td><input type="text" name="first_name" value="[% contact.user_id.first_name %]" ></td></tr>
+      <tr><td>Last Name:</td><td><input type="text" name="last_name" value="[% contact.user_id.last_name %]" ></td></tr>
+      <tr><td>Email:</td><td><input type="text" name="email_address" value="[% contact.user_id.email_address %]" ></td></tr>      
+      <tr><td>Job Title:</td><td><input type="text" name="job_title" value="[% contact.job_title %]" ></td></tr>
+      <tr><td>
+      <label for="company">Company:</label>
+      </td>
+      <td>
+      <div id="myAutoComplete">
+          <input id="company_id" name="company_id" type="hidden">
+          <input id="company" name="company" type="text" value="[% contact.company_contacts.company.name %]">
+          <div id="myContainer"></div>
+      </div>
+      </td></tr>
+
+      <tr><td><b>Address</b></td></tr>
+      <tr><td> Line 1:</td><td><input type="text" name="line1" value="[% contact.address_id.line1 %]" ></td></tr>
+      <tr><td> Line 2:</td><td><input type="text" name="line2" value="[% contact.address_id.line2 %]" ></td></tr>
+      <tr><td> City:</td><td><input type="text" name="city" value="[% contact.address_id.city %]" ></td></tr>
+      <tr><td> State:</td><td><input type="text" name="state" value="[% contact.address_id.state %]" ></td></tr>
+      <tr><td> Country:</td><td><input type="text" name="country" value="[% contact.address_id.country %]" ></td></tr>
+      <tr><td> Zip:</td><td><input type="text" name="zip" value="[% contact.address_id.zip %]" ></td></tr>      
+    </table>
+    <input type="submit" name="Submit" value="Submit">
+    </form>
+    
+    <style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/autocomplete/assets/skins/sam/autocomplete.css" />
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/autocomplete/autocomplete-min.js"></script>
+
+
+<!--begin custom header content for this example-->
+<style type="text/css">
+#myAutoComplete {
+/*    width:25em;  set width here or else widget will expand to fit its container */
+    padding-bottom:2em;
+}
+</style>
+
+
+<!--end custom header content for this example-->
+
+</head>
+
+
+<script type="text/javascript">
+YAHOO.example.BasicRemote = function() {
+    // Use an XHRDataSource
+    var oDS = new YAHOO.util.XHRDataSource("http://localhost:3000/companies/list?qs=");
+    // Set the responseType
+    oDS.responseType = YAHOO.util.XHRDataSource.TYPE_TEXT;
+    // Define the schema of the delimited results
+    oDS.responseSchema = {
+        recordDelim: "\n",
+        fieldDelim: "\t"
+    };
+    // Enable caching
+    oDS.maxCacheEntries = 5;
+
+    function fnCallBack(e, args) {
+        alert(args[2][1]);
+        YAHOO.util.Dom.get("company_id").value = args[2][1];
+    }
+
+    // Instantiate the AutoComplete
+    var oAC = new YAHOO.widget.AutoComplete("company", "myContainer", oDS);
+    oAC.itemSelectEvent.subscribe(fnCallBack);
+    oAC.useShadow = true;
+    oAC.forceSelection = true;
+    oAC.useIFrame = true;
+
+    return {
+        oDS: oDS,
+        oAC: oAC
+    };
+}();
+</script>
+
+

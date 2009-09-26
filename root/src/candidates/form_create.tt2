@@ -1,0 +1,19 @@
+   [% META title = 'Manual Form Candidate Create' -%]
+
+    <form method="post" action="[% c.uri_for('form_create_do') %]">
+    <table>
+      <tr><td>Full Name:</td><td><input type="text" name="full_name" value="[% candidate.user_id.full_name %]" ></td></tr>
+      <tr><td>First Name:</td><td><input type="text" name="first_name" value="[% candidate.user_id.first_name %]" ></td></tr>
+      <tr><td>Last Name:</td><td><input type="text" name="last_name" value="[% candidate.user_id.last_name %]" ></td></tr>
+      <tr><td>Email:</td><td><input type="text" name="email_address" value="[% candidate.user_id.email_address %]" ></td></tr>      
+      <tr><td>Job Title:</td><td><input type="text" name="job_title" value="[% candidate.job_title %]" ></td></tr>
+      <tr><td><b>Address</b></td></tr>
+      <tr><td> Line 1:</td><td><input type="text" name="line1" value="[% candidate.address_id.line1 %]" ></td></tr>
+      <tr><td> Line 2:</td><td><input type="text" name="line2" value="[% candidate.address_id.line2 %]" ></td></tr>
+      <tr><td> City:</td><td><input type="text" name="city" value="[% candidate.address_id.city %]" ></td></tr>
+      <tr><td> State:</td><td><input type="text" name="state" value="[% candidate.address_id.state %]" ></td></tr>
+      <tr><td> Country:</td><td><input type="text" name="country" value="[% candidate.address_id.country %]" ></td></tr>
+      <tr><td> Zip:</td><td><input type="text" name="zip" value="[% candidate.address_id.zip %]" ></td></tr>      
+    </table>
+    <input type="submit" name="Submit" value="Submit">
+    </form>

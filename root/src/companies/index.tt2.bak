@@ -1,0 +1,19 @@
+    [% META title = 'Company List' -%]
+    
+    <table>
+    <tr>
+	<th>ID</th>
+	<th>Person ID</th>
+	<th>Type</th>
+	<th>Job Title</th>
+	<th>First Name</th>
+	<th>Last Name</th>
+    </tr>
+    [% # Display each candidate in a table row %]
+    [% FOREACH company IN companies -%]
+      <tr>
+        <td>[% company.id %]</td>
+	<td>[% company.name %]</td>
+      </tr>
+    [% END -%]
+    </table>

@@ -1,0 +1,22 @@
+    [% META title = 'Company List' -%]
+    
+    <table>
+    <tr>
+	<th>ID</th>
+	<th>Name</th>
+	<th>Status</th>
+	<th></th>
+    </tr>
+    [% # Display each candidate in a table row %]
+    [% FOREACH company IN companies -%]
+      <tr>
+        <td>[% company.id %]</td>
+	<td><a href="[% c.uri_for('edit', company.id) %]">[% company.name %]</a></td>
+	<td></td>
+	<td><a href="[% c.uri_for('delete', company.id) %]">Delete</a></td>
+
+      </tr>
+    [% END -%]
+    </table>
+    
+    <a href="[% c.uri_for('edit') %]">Create a Company</a>
