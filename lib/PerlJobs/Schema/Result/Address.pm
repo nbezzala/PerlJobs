@@ -44,12 +44,7 @@ __PACKAGE__->add_columns(
     size => undef,
   },
   "country",
-  {
-    data_type => "text",
-    default_value => undef,
-    is_nullable => 1,
-    size => undef,
-  },
+  { data_type => "integer", default_value => undef, is_nullable => 1, size => 4 },
   "zip",
   {
     data_type => "text",
@@ -60,6 +55,11 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("address_pkey", ["id"]);
+__PACKAGE__->belongs_to(
+  "country",
+  "PerlJobs::Schema::Result::Country",
+  { id => "country" },
+);
 __PACKAGE__->has_many(
   "candidates",
   "PerlJobs::Schema::Result::Candidate",
@@ -77,8 +77,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-23 17:14:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+KffvnytPH7qSeevFLhhtw
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-27 14:52:30
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QDE4JAaVGw38Rk5I+nxS6Q
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

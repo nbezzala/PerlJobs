@@ -67,9 +67,15 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-23 17:14:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SI1MbuqyFdblUDuZWa6R0A
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-27 14:52:30
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jun8AGIfdymLf8z2Gemx6Q
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->many_to_many(
+  "company_contacts",
+  "PerlJobs::Schema::Result::CompanyContact",
+  "company_id"
+);
+
 1;

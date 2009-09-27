@@ -7,7 +7,9 @@ has_field 'line1' => ( type => 'Text' );
 has_field 'line2' => ( type => 'Text' );
 has_field 'city' => ( type => 'Text' );
 has_field 'state' => ( type => 'Text' );
-has_field 'country' => ( type => 'Text' );
+has_field 'country' => ( type => 'Select', 
+						label_column => 'country',
+						active_column => 'United States' );
 has_field 'zip' => ( type => 'Text' );
 
 no HTML::FormHandler::Moose;
