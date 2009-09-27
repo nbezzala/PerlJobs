@@ -79,9 +79,5 @@ __PACKAGE__->belongs_to(
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
-__PACKAGE__->many_to_many(
-  "company_contacts" => "PerlJobs::Schema::Result::CompanyContact",
-  "contact_id"
-);
-
+ __PACKAGE__->many_to_many(companies => 'company_contacts', 'company_id');
 1;
