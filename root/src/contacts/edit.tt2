@@ -1,0 +1,7 @@
+[% form.render %]
+
+
+<td>
+  <a href="[% c.uri_for('delete', contact.id) %]">Delete</a>|
+  <a href="[% c.uri_for('edit', contact.id) %]">Edit</a>
+</td>
