@@ -35,7 +35,7 @@ sub index :Path :Args(0) {
                                    password => $password  } )) {
                 # If successful, then let them use the application
                 $c->response->redirect($c->uri_for(
-                    $c->controller('Contacts')->action_for('list')));
+                    $c->controller('Companies')->action_for('index')));
                 return;
             } else {
                 # Set an error message
