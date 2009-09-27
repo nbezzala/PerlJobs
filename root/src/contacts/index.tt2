@@ -11,14 +11,13 @@
     [% FOREACH contact IN contacts -%]
       <tr>
         <td>[% contact.id %]</td>
-        <td>[% contact.full_name %]</td>
-	<td>[% contact.company_list %]</td>
-        <td>[% contact.designation %]</td>
+        <td><a href="[% c.uri_for('edit', contact.id) %]">[% contact.user_id.first_name %]</a></td>
+	<td>[% contact.user_id.last_name %]</td>
+        <td>[% contact.job_title %]</td>
       </tr>
     [% END -%]
     </table>
     
         <p>
-      <a href="[% c.uri_for('/login') %]">Login</a>
-      <a href="[% c.uri_for(c.controller.action_for('form_create')) %]">Create</a>
+      <a href="[% c.uri_for(c.controller.action_for('edit')) %]">Create</a>
     </p>

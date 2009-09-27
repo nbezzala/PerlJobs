@@ -1,8 +1,9 @@
 package PerlJobs::Controller::Contacts;
 
-use strict;
-use warnings;
-use base 'Catalyst::Controller';
+use Moose;
+
+BEGIN { extends 'Catalyst::Controller' };
+use PerlJobs::Form::Contact;
 
 =head1 NAME
 
@@ -16,6 +17,9 @@ Catalyst Controller.
 
 =cut
 
+has 'form' => ( isa => 'PerlJobs::Form::Contact', is => 'rw',
+       lazy => 1, default => sub { PerlJobs::Form::Contact->new } );
+
 
 =head2 index 
 
@@ -26,18 +30,6 @@ sub index : Private {
 
 	$c->stash->{contacts} = [$c->model('DB::Contact')->all];
 	$c->stash->{templates} = 'contacts/index.tt2';
-}
-
-=head2 form_create
-    
-Display form to collect information for book to create
-
-=cut
-
-sub form_create :Chained('base') :PathPart('form_create') :Args(0) {
-    my ($self, $c) = @_;
-
-    $c->stash->{template} = 'contacts/form_create.tt2';
 }
 
 =head2 base
@@ -56,66 +48,29 @@ sub base :Chained('/') :PathPart('contacts') :CaptureArgs(0) {
     $c->log->debug('*** INSIDE BASE METHOD ***');
 }
 
-=head2 form_create_do
 
-Take information from form and add to database
+=head2 edit
+
+Create or edit a contact.
 
 =cut
 
-sub form_create_do :Chained('base') :PathPart('form_create_do') :Args(0) {
-    my ($self, $c) = @_;
+sub edit : Local {
+    my ( $self, $c, $contact_id ) = @_;
 
-    # Retrieve the values from the form
-    my $first_name    = $c->request->params->{first_name};
-    my $last_name = $c->request->params->{last_name};
-    my $job_title      = $c->request->params->{job_title};
-    my $email_address  = $c->request->params->{email_address};
-    my $line1    = $c->request->params->{line1};
-    my $line2 = $c->request->params->{line2};
-    my $city      = $c->request->params->{city};
-    my $state  = $c->request->params->{state};
-    my $country  = $c->request->params->{country};
-    my $zip  = $c->request->params->{zip};
-    my $company_id = $c->request->params->{company_id};
-        
-    # Create an inactive User first
-    my $user = $c->model('DB::Users')->create({
-            first_name   => $first_name,
-            last_name   => $last_name,
-            email_address   => $email_address,
-        });
+    $c->stash( template => 'contacts/edit.tt2',
+               form => $self->form ); 
 
-    my $address = $c->model('DB::Address')->create({
-        line1  =>       $line1,
-        line2  =>       $line2,
-        city    =>       $city,
-        state   =>       $state,
-        country =>       $country,
-        zip     =>       $zip,
-    });
+    # Validate and insert/update database 
+    return unless $self->form->process( item_id => $contact_id,
+       params => $c->req->parameters,
+       schema => $c->model('DB')->schema ); 
 
-    # Create the Contact
-    my $contact = $c->model('DB::Contact')->create({
-	    job_title  => $job_title,
-            user_id => $user->id,
-            address_id => $address->id
-        });
-    # Handle relationship with Company
-    $contact->add_to_company_contacts({company_id => $company_id});
-#    $book->add_to_book_authors({author_id => $author_id});
-    # Note: Above is a shortcut for this:
-    # $book->create_related('book_authors', {author_id => $author_id});
-
-    # Store new model object in stash
-    $c->stash->{contact} = $contact;
-
-    # Avoid Data::Dumper issue mentioned earlier
-    # You can probably omit this
-    $Data::Dumper::Useperl = 1;
-
-    # Set the TT template to use
-    $c->stash->{template} = 'contacts/form_create.tt2';
+    # Form validated, return to the books list
+    $c->flash->{status_msg} = 'Contact saved';
+    $c->res->redirect($c->uri_for('list'));
 }
+
 
 
 =head1 AUTHOR
