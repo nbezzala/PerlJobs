@@ -56,7 +56,7 @@ sub edit : Local {
 
     # Form validated, return to the books list
     $c->flash->{status_msg} = 'Company saved';
-    $c->res->redirect($c->uri_for('list'));
+    $c->res->redirect($c->uri_for("/"));
 }
 
 

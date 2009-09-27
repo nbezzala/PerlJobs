@@ -42,7 +42,7 @@ sub base :Chained('/') :PathPart('contacts') :CaptureArgs(0) {
     my ($self, $c) = @_;
 
     # Store the ResultSet in stash so it's available for other methods
-    $c->stash->{resultset} = $c->model('DB::Candidate');
+    $c->stash->{resultset} = $c->model('DB::Contact');
 
     # Print a message to the debug log
     $c->log->debug('*** INSIDE BASE METHOD ***');
@@ -60,7 +60,7 @@ sub edit : Local {
 
     $c->stash( template => 'contacts/edit.tt2',
                form => $self->form ); 
-
+ 
     # Validate and insert/update database 
     return unless $self->form->process( item_id => $contact_id,
        params => $c->req->parameters,
@@ -68,7 +68,7 @@ sub edit : Local {
 
     # Form validated, return to the books list
     $c->flash->{status_msg} = 'Contact saved';
-    $c->res->redirect($c->uri_for('list'));
+    $c->res->redirect($c->uri_for('contacts'));
 }
 
 
