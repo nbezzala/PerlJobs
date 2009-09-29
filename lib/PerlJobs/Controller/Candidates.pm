@@ -1,8 +1,9 @@
 package PerlJobs::Controller::Candidates;
 
-use strict;
-use warnings;
-use base 'Catalyst::Controller';
+use Moose;
+
+BEGIN { extends 'Catalyst::Controller' };
+use PerlJobs::Form::Candidate;
 
 =head1 NAME
 
@@ -16,6 +17,9 @@ Catalyst Controller.
 
 =cut
 
+has 'form' => ( isa => 'PerlJobs::Form::Candidate', is => 'rw',
+       lazy => 1, default => sub { PerlJobs::Form::Candidate->new } );
+
 
 =head2 index 
 
@@ -23,8 +27,9 @@ Catalyst Controller.
 
 sub index : Private {
     my ( $self, $c ) = @_;
-
-    $c->response->body('Matched PerlJobs::Controller::Candidates in Candidates.');
+    
+    $c->res->redirect($c->uri_for("list"));
+#    $c->response->body('Matched PerlJobs::Controller::Candidates in Candidates.');
 }
 
 =head2 list 
@@ -37,6 +42,29 @@ sub list : Local {
 	$c->stash->{candidates} = [$c->model('DB::Candidate')->all];
 	$c->stash->{template} = 'candidates/list.tt2';
 }
+
+=head2 edit
+
+Create or edit a company.
+
+=cut
+
+sub edit : Local {
+    my ( $self, $c, $candidate_id ) = @_;
+
+    $c->stash( template => 'candidates/edit.tt2',
+               form => $self->form ); 
+
+    # Validate and insert/update database 
+    return unless $self->form->process( item_id => $candidate_id,
+       params => $c->req->parameters,
+       schema => $c->model('DB')->schema ); 
+
+    # Form validated, return to the books list
+    $c->flash->{status_msg} = 'Candidate saved';
+    $c->res->redirect($c->uri_for("list"));
+}
+
 
 =head2 form_create
     
@@ -127,7 +155,7 @@ sub form_create_do :Chained('base') :PathPart('form_create_do') :Args(0) {
 
 =head1 AUTHOR
 
-A clever guy
+Nitish Bezzala (nbezzala@yahoo.com)
 
 =head1 LICENSE
 
