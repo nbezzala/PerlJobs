@@ -79,6 +79,12 @@
             <li class="yuimenuitem">
                 <a class="yuimenuitemlabel" href="[% c.uri_for('/contacts') %]">Contacts</a>
             </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/jobs') %]">Jobs</a>
+            </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/logout') %]">Log out</a>
+            </li>
 
         </ul>
     </div>
