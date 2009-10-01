@@ -1,13 +1,17 @@
 ﻿     --
     -- Drops just in case you are reloading
     ---
+    DROP TABLE IF EXISTS job CASCADE;
     DROP TABLE IF EXISTS candidate CASCADE;
+    DROP TABLE IF EXISTS resume CASCADE;
+    DROP TABLE IF EXISTS candidate_resume CASCADE;
     DROP TABLE IF EXISTS contact CASCADE;
     DROP TABLE IF EXISTS company CASCADE;
     DROP TABLE IF EXISTS company_contact CASCADE;
     DROP TABLE IF EXISTS address CASCADE;
     DROP TABLE IF EXISTS job_title CASCADE;
     DROP TABLE IF EXISTS country CASCADE; 
+    
     DROP TABLE IF EXISTS user_roles CASCADE;
     DROP TABLE IF EXISTS roles CASCADE;
     DROP TABLE IF EXISTS users CASCADE;
@@ -66,23 +70,38 @@
 --
     -- Create a database to hold candidate, company information
     --
-    -- 
+    -- Add these later
+    --  ssn         TEXT,
+    --  passport_no TEXT,
+
     
     CREATE TABLE candidate (
             id     SERIAL PRIMARY KEY,
             user_id   INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	    job_title	TEXT,
 	    address_id INTEGER REFERENCES address(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	    notes       TEXT,
+            experience  DECIMAL(2),
 	    created_at TIMESTAMP NOT NULL DEFAULT now(),
 	    updated_at TIMESTAMP,
 	    created_by INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	    updated_by INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
     );
+    
+    CREATE TABLE resume (
+            id          	SERIAL PRIMARY KEY,
+            candidate_id 	INTEGER REFERENCES candidate(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            resume      	bytea
+    );
+
+
 
     CREATE TABLE company (
             id         SERIAL PRIMARY KEY,
             name       TEXT,
             address_id INTEGER REFERENCES address(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            notes      TEXT,
+            status      TEXT,
 	    created_at TIMESTAMP NOT NULL DEFAULT now(),
 	    updated_at TIMESTAMP,
 	    created_by INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -92,7 +111,8 @@
     CREATE TABLE contact (
             id           SERIAL PRIMARY KEY,
             user_id      INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-            job_title  TEXT,
+            job_title    TEXT,
+            notes        TEXT,
             address_id INTEGER REFERENCES address(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	    created_at TIMESTAMP NOT NULL DEFAULT now(),
 	    updated_at TIMESTAMP,
@@ -106,6 +126,23 @@
             PRIMARY KEY (company_id, contact_id)
     );
     
+    CREATE TABLE job (
+            id           SERIAL PRIMARY KEY,
+            job_title    TEXT,
+            company_id  INTEGER REFERENCES company(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            contact_id  INTEGER REFERENCES contact(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            notes        TEXT,
+            description TEXT,
+            experience  DECIMAL(2),
+            no_required INTEGER,
+            no_filled   INTEGER,
+            status      TEXT,
+	    created_at TIMESTAMP NOT NULL DEFAULT now(),
+	    updated_at TIMESTAMP,
+	    created_by INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	    updated_by INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+    );
+    
 
 ALTER TABLE candidate OWNER TO catappuser;
 ALTER TABLE contact OWNER TO catappuser;
@@ -117,28 +154,11 @@ ALTER TABLE user_roles OWNER TO catappuser;
 ALTER TABLE address OWNER TO catappuser;
 ALTER TABLE job_title OWNER TO catappuser;
 ALTER TABLE country OWNER TO catappuser;
-    --
-    -- Load up some initial test data
-    --
-    INSERT INTO users (username, password, email_address, first_name, last_name, active) 
-        VALUES ('test01', 'mypass', 't01@na.com', 'Joe',  'Blow', 1);
-    INSERT INTO users (username, password, email_address, first_name, last_name, active) 
-        VALUES ('test02', 'mypass', 't02@na.com', 'Jane', 'Doe',  1);
-    INSERT INTO users (username, password, email_address, first_name, last_name, active)
-        VALUES ('test03', 'mypass', 't03@na.com', 'No',   'Go',   0);
-    INSERT INTO users (username, password, email_address, first_name, last_name, active)
-        VALUES ('test04', 'mypass', 't04@na.com', 'No',   'Go',   0);    
-            
-    INSERT INTO roles (role) VALUES ('user');
-    INSERT INTO roles (role) VALUES ('admin');
-    INSERT INTO user_roles VALUES (1, 1);
-    INSERT INTO user_roles VALUES (1, 2);
-    INSERT INTO user_roles VALUES (2, 1);
-    INSERT INTO user_roles VALUES (3, 1);
-
+ALTER TABLE job OWNER TO catappuser;
+ALTER TABLE resume OWNER TO catappuser;
 
     ---
-    --- Load some sample data
+    --- Load initial data
     ---
     
 INSERT INTO country (country) VALUES ('United States');
@@ -382,3 +402,35 @@ INSERT INTO country (country) VALUES ('Western Sahara');
 INSERT INTO country (country) VALUES ('Yemen');
 INSERT INTO country (country) VALUES ('Zambia');
 INSERT INTO country (country) VALUES ('Zimbabwe');
+
+
+    --
+    -- Load up some initial test data
+    --
+    INSERT INTO users (username, password, email_address, first_name, last_name, active) 
+        VALUES ('admin', 'mypass', 'admin@perljobs.com', 'Admin',  'Guy', 1);
+    INSERT INTO users (username, password, email_address, first_name, last_name, active) 
+        VALUES ('test01', 'mypass', 't01@na.com', 'Joe',  'Blow', 1);
+    INSERT INTO users (username, password, email_address, first_name, last_name, active) 
+        VALUES ('test02', 'mypass', 't02@na.com', 'Jane', 'Doe',  1);
+    INSERT INTO users (username, password, email_address, first_name, last_name, active)
+        VALUES ('test03', 'mypass', 't03@na.com', 'No',   'Go',   0);
+    INSERT INTO users (username, password, email_address, first_name, last_name, active)
+        VALUES ('test04', 'mypass', 't04@na.com', 'No',   'Go',   0);    
+            
+    INSERT INTO roles (role) VALUES ('user');
+    INSERT INTO roles (role) VALUES ('admin');
+    INSERT INTO roles (role) VALUES ('candidate');
+    INSERT INTO roles (role) VALUES ('consultant');
+    INSERT INTO roles (role) VALUES ('contact');
+    INSERT INTO roles (role) VALUES ('manager');
+    INSERT INTO user_roles VALUES (1, 1);
+    INSERT INTO user_roles VALUES (1, 2);
+    INSERT INTO user_roles VALUES (1, 3);
+    INSERT INTO user_roles VALUES (1, 4);
+    INSERT INTO user_roles VALUES (1, 5);
+    INSERT INTO user_roles VALUES (1, 6);
+    INSERT INTO user_roles VALUES (2, 1);
+    INSERT INTO user_roles VALUES (3, 1);
+    INSERT INTO user_roles VALUES (4, 1);
+    

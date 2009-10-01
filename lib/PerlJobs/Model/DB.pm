@@ -10,7 +10,6 @@ __PACKAGE__->config(
         dsn => 'dbi:Pg:dbname=catappdb',
         user => 'catappuser',
         password => 'catalyst',
-        AutoCommit => 1,
     }
 );
 

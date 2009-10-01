@@ -110,14 +110,24 @@ __PACKAGE__->has_many(
   { "foreign.user_id" => "self.id" },
 );
 __PACKAGE__->has_many(
+  "job_updated_bies",
+  "PerlJobs::Schema::Result::Job",
+  { "foreign.updated_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "job_created_bies",
+  "PerlJobs::Schema::Result::Job",
+  { "foreign.created_by" => "self.id" },
+);
+__PACKAGE__->has_many(
   "user_roles",
   "PerlJobs::Schema::Result::UserRoles",
   { "foreign.user_id" => "self.id" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-27 14:52:30
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kN9SKAsWxeTfdoRX1/gTag
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-29 22:09:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EsX1yw3rPxNOotmfS7dIrQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
