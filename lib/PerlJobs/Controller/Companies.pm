@@ -54,15 +54,14 @@ sub edit : Local {
        params => $c->req->parameters,
        schema => $c->model('DB')->schema ); 
 
-    # Form validated, return to the books list
+    # Form validated, return to the companies list
     $c->flash->{status_msg} = 'Company saved';
     $c->res->redirect($c->uri_for("list"));
 }
+=head2 list 
 
-
-
-=head2 index 
-Company default page. Not sure if we really need this...
+Lists all the companies.
+ 
 =cut
 
 sub list : Local {
@@ -72,15 +71,16 @@ sub list : Local {
     $c->stash->{template} = 'companies/list.tt2';
 }
 
-=head2 list 
-Lists all the companies.
+=head2 index 
+
+Company default page. Not sure if we really need this...
+
 =cut
 
 sub index : Private {
     my ( $self, $c ) = @_;
 
     $c->res->redirect($c->uri_for("list"));
-#    $c->response->body('Matched PerlJobs::Controller::Companies in Companies.');
 }
 
 
@@ -111,6 +111,24 @@ sub autocomplete :Chained('base') :PathPart('list') :Args(0) {
     }
     $c->log->debug("*** INSIDE list METHOD *** $#companies  *** $qs");    
     $c->response->body($return_text);
+}
+
+=head2 contacts 
+
+Lists all the contacts of the company.
+
+=cut
+
+sub contacts :Chained('base') :PathPart('contacts') :Args(1) {
+    my ( $self, $c, $company_id ) = @_;
+
+    $c->stash->{form} = $self->form;
+    $c->stash->{contacts} = [$c->model('DB::Company')->find($company_id)->contacts];
+    $c->stash->{template} = 'companies/main.tt2';
+    return unless $self->form->process( item_id => $company_id,
+    params => $c->req->parameters,
+    schema => $c->model('DB')->schema ); 
+
 }
 
 

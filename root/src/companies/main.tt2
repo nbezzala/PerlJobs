@@ -1,0 +1,17 @@
+
+    <ul class="yui-nav">
+        <li class="selected"><a href="#tab1"><em>Main</em></a></li>
+        <li><a href="#tab2"><em>Contacts</em></a></li>
+        <li><a href="#tab3"><em>Tab Three Label</em></a></li>
+    </ul>            
+    <div class="yui-content">
+        <div id="tab1">
+            [% PROCESS companies/edit.tt2 %]
+        </div>
+        <div id="tab2">
+            [% PROCESS companies/contacts.tt2 %]
+        </div>
+        <div id="tab3">
+            <p>Tab Three Content</p>
+        </div>
+    </div>
