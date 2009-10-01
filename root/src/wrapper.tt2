@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Perl Jobs - [% template.title %]</title>
+        <title>Perl Jobs - [% template.title %] [% pagename %]</title>
 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts-min.css" />
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset-fonts-grids/reset-fonts-grids.css" />
@@ -73,3 +73,26 @@
 
     </body>
 </html>
+
+<script language="JavaScript">
+(function() {
+})();
+    var Dom = YAHOO.util.Dom,
+        Event = YAHOO.util.Event;
+
+    Event.onDOMReady(function() {
+        var layout = new YAHOO.widget.Layout({
+            units: [
+                { position: 'top', height: 28, body: 'top1', scroll: null, zIndex: 2 },
+                { position: 'bottom', height: 30, body: 'bottom1' },
+                { position: 'left', header: 'Menu', width: 200, body: 'left1', gutter: '5', scroll: null, zIndex: 1 },
+                { position: 'center', body: 'center1', gutter: '5', header: '[% template.title %]' }
+            ]
+        });
+        
+       
+        layout.render();
+    });
+
+
+</script>

@@ -1,6 +1,8 @@
-
+    [% META title = 'Company ' -%]
+    [% SET pagename = company.name %]
+    
     <ul class="yui-nav">
-        <li class="selected"><a href="#tab1"><em>Main</em></a></li>
+        <li class="selected"><a href="#tab1"><em>Summary</em></a></li>
         <li><a href="#tab2"><em>Contacts</em></a></li>
         <li><a href="#tab3"><em>Tab Three Label</em></a></li>
     </ul>            
@@ -15,3 +17,10 @@
             <p>Tab Three Content</p>
         </div>
     </div>
+
+<script language="JavaScript">
+(function() {
+
+        var tabView = new YAHOO.widget.TabView('center1');
+})();                
+</script>

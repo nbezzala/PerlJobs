@@ -1,4 +1,4 @@
-<div id="company_contacts">    
+
     <table>
     <tr>
 	<th>ID</th>
@@ -20,5 +20,3 @@
         <p>
       <a href="[% c.uri_for(c.controller.action_for('edit')) %]">Create a Contact</a>
     </p>
-
-</div>
