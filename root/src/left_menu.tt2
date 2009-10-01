@@ -22,14 +22,9 @@
         </ul>
     </div>
 
-
 <script language="JavaScript">
-(function() {
-    var Dom = YAHOO.util.Dom,
-        Event = YAHOO.util.Event;
-
         var initLeftMenu = function() {
-    var tabView = new YAHOO.widget.TabView('center1');
+    
                 var oMenu = new YAHOO.widget.Menu("productsandservices2", { 
                                                         position: "static", 
                                                         hidedelay:  750, 
@@ -96,25 +91,9 @@ We can add submenus later if we need them.
                 
                 oMenu.render();
         };
-
-
-    Event.onDOMReady(function() {
-        var layout = new YAHOO.widget.Layout({
-            units: [
-                { position: 'top', height: 28, body: 'top1', scroll: null, zIndex: 2 },
-                { position: 'bottom', height: 30, body: 'bottom1' },
-                { position: 'left', header: 'Menu', width: 200, body: 'left1', gutter: '5', scroll: null, zIndex: 1 },
-                { position: 'center', body: 'center1', gutter: '5', header: '[% template.title %]' }
-            ]
-        });
         
-        layout.on('render', function() {
+                layout.on('render', function() {
             YAHOO.util.Event.onContentReady("productsandservices2", initLeftMenu);        
         });
-        
-        layout.render();
-    });
-})();
-
 
 </script>
