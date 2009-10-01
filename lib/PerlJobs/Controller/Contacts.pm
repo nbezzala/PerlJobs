@@ -68,14 +68,14 @@ sub edit : Local {
 
     # Form validated, return to the books list
     $c->flash->{status_msg} = 'Contact saved';
-    $c->res->redirect($c->uri_for('contacts'));
+    $c->res->redirect($c->uri_for('list'));
 }
 
 
 
 =head1 AUTHOR
 
-A clever guy
+Nitish Bezzala (nbezzala@yahoo.com)
 
 =head1 LICENSE
 
