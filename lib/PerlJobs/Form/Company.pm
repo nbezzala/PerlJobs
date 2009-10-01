@@ -23,6 +23,8 @@ has_field 'name' => ( type => 'Text' );
 
 has_field 'address_id' => ( type => '+PerlJobs::Form::Field::Address', label => 'Address' );
 
+has_field 'notes' => ( type => 'TextArea' );
+
 has_field 'submit' => ( type => 'Submit', value => 'Submit' );
 
 no HTML::FormHandler::Moose;
