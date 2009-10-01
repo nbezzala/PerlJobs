@@ -1,208 +1,75 @@
 <html>
-<head>
+    <head>
+        <title>Perl Jobs - [% template.title %]</title>
 
-    <title>[% template.title or "Perl Jobs!" %]</title>
-
-
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts-min.css" />
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset-fonts-grids/reset-fonts-grids.css" />
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/menu/assets/skins/sam/menu.css" />
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/resize/assets/skins/sam/resize.css" />
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/layout/assets/skins/sam/layout.css" />
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/tabview/assets/skins/sam/tabview.css" />
+
 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/utilities/utilities.js"></script>
 <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/container/container_core-min.js"></script> 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/menu/menu-min.js"></script> 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/resize/resize-min.js"></script>
 <script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/layout/layout-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/tabview/tabview-min.js"></script>
 
-<style>
-    #productsandservices2 {        
-        position: static;
-    }
+        <style>
+            #productsandservices2 {        
+                position: static;
+            }
 
-    /*
-        For IE 6: trigger "haslayout" for the anchor elements in the root Menu by 
-        setting the "zoom" property to 1.  This ensures that the selected state of 
-        MenuItems doesn't get dropped when the user mouses off of the text node of 
-        the anchor element that represents a MenuItem's text label.
-    */
+            #productsandservices2 .yuimenuitemlabel {
+                _zoom: 1;
+            }
 
-    #productsandservices2 .yuimenuitemlabel {
-        _zoom: 1;
-    }
+            #productsandservices2 .yuimenu .yuimenuitemlabel {
+                _zoom: normal;
+            }
+            /*
+                Turn off the border on the top unit since Menu has it's own border
+            */
+            .yui-skin-sam .yui-layout .yui-layout-unit-top div.yui-layout-bd {
+                border: none;
+            }
+            /*
+                Change some of the Menu colors
+            */
+            .yui-skin-sam .yuimenu .bd {
+                background-color: #F2F2F2;
+            }
+            #productsandservices2 .bd {
+                border: none;
+            }
+            #productsandservices2 .bd .first-of-type .bd {
+                border: 1px solid #808080;
+            }
+        </style>
 
-    #productsandservices2 .yuimenu .yuimenuitemlabel {
-        _zoom: normal;
-    }
-    /*
-        Turn off the border on the top unit since Menu has it's own border
-    */
-    .yui-skin-sam .yui-layout .yui-layout-unit-top div.yui-layout-bd {
-        border: none;
-    }
-    /*
-        Change some of the Menu colors
-    */
-    .yui-skin-sam .yuimenu .bd {
-        background-color: #F2F2F2;
-    }
-    #productsandservices2 .bd {
-        border: none;
-    }
-    #productsandservices2 .bd .first-of-type .bd {
-        border: 1px solid #808080;
-    }
-</style>
+    </head>
 
+    <body class=" yui-skin-sam">
 
+        <div id="top1" align="center"> 
+                <h1>Perl Jobs</h1>
+        </div>
 
-</head>
+        <div id="left1">
+            [% PROCESS left_menu.tt2 %]
+        </div>
 
-<body class=" yui-skin-sam">
+        <div id="center1" class="yui-navset">
+            [% content %]
+        </div>
 
-<div id="top1"> 
-        <h1>Perl Jobs</h1>
-        <h2>[% template.title or site.title %]</h2>
-</div>
+        <div id="bottom1" align="center">
+            [% PROCESS footer.tt2 %]
+        </div>
 
-<div id="left1">
-    <div id="productsandservices2" class="yuimenu">
-    <div class="bd">
-        <ul class="first-of-type">
-
-            <li class="yuimenuitem">
-                <a class="yuimenuitemlabel" href="[% c.uri_for('/candidates') %]">Candidates</a>
-            </li>
-            <li class="yuimenuitem">
-                <a class="yuimenuitemlabel" href="[% c.uri_for('/companies') %]">Companies</a>
-            </li>
-            <li class="yuimenuitem">
-                <a class="yuimenuitemlabel" href="[% c.uri_for('/contacts') %]">Contacts</a>
-            </li>
-            <li class="yuimenuitem">
-                <a class="yuimenuitemlabel" href="[% c.uri_for('/jobs') %]">Jobs</a>
-            </li>
-            <li class="yuimenuitem">
-                <a class="yuimenuitemlabel" href="[% c.uri_for('/logout') %]">Log out</a>
-            </li>
-
-        </ul>
-    </div>
-
-
-</div>
-<div id="center1" align="left">
-    [% content %]
-</div>
-<div id="bottom1"> Footer </div>
-
-
-
-<script language="JavaScript">
-(function() {
-    var Dom = YAHOO.util.Dom,
-        Event = YAHOO.util.Event;
-
-        var initLeftMenu = function() {
-
-                var oMenu = new YAHOO.widget.Menu("productsandservices2", { 
-                                                        position: "static", 
-                                                        hidedelay:  750, 
-                                                        lazyload: true,
-                                                            effect: { 
-                                                                effect: YAHOO.widget.ContainerEffect.FADE,
-                                                                duration: 0.25
-                                                            } 
-                                                        });
-
-/*
-We can add submenus later if we need them.
-                var aSubmenuData = [
-                
-                    {
-                        id: "communication2", 
-                        itemdata: [ 
-                            { text: "360", url: "http://360.yahoo.com" },
-                            {
-                                text: "PIM", 
-                                submenu: { 
-                                            id: "pim2", 
-                                            itemdata: [
-                                                { text: "Yahoo! Mail", url: "http://mail.yahoo.com" },
-                                                { text: "Yahoo! Notepad", url: "http://notepad.yahoo.com" }
-                                            ] 
-                                        }
-                            
-                            }, 
-                            { text: "Member Directory", url: "http://members.yahoo.com" },
-                            { text: "Flickr Photo Sharing", url: "http://www.flickr.com" },
-                        ]
-                    },
-
-                    {
-                        id: "shopping2", 
-                        itemdata: [
-                            { text: "Auctions", url: "http://auctions.shopping.yahoo.com" },
-                            { text: "Autos", url: "http://autos.yahoo.com" },
-                            { text: "Classifieds", url: "http://classifieds.yahoo.com" },
-                            { text: "Flowers & Gifts", url: "http://shopping.yahoo.com/b:Flowers%20%26%20Gifts:20146735" },
-                            { text: "Real Estate", url: "http://realestate.yahoo.com" },
-                            { text: "Travel", url: "http://travel.yahoo.com" },
-                            { text: "Wallet", url: "http://wallet.yahoo.com" },
-                            { text: "Yellow Pages", url: "http://yp.yahoo.com" }                    
-                        ]    
-                    },
-                    
-                ];
-*/
-
-                // Subscribe to the Menu instance's "beforeRender" event
-
-                oMenu.subscribe("beforeRender", function () {
-
-                    if (this.getRoot() == this) {
-
-                        this.getItem(0).cfg.setProperty("submenu", aSubmenuData[0]);
-                        this.getItem(1).cfg.setProperty("submenu", aSubmenuData[1]);
-                        this.getItem(2).cfg.setProperty("submenu", aSubmenuData[2]);
-                        this.getItem(3).cfg.setProperty("submenu", aSubmenuData[3]);
-
-                    }
-
-                });
-                
-
-                /*
-                     Call the "render" method with no arguments since the 
-                     markup for this Menu instance is already exists in the page.
-                */
-
-                oMenu.render();
-        };
-
-
-    Event.onDOMReady(function() {
-        var layout = new YAHOO.widget.Layout({
-            units: [
-                { position: 'top', height: 28, body: 'top1', scroll: null, zIndex: 2 },
-                { position: 'bottom', height: 30, body: 'bottom1' },
-                { position: 'left', header: 'Menu', width: 200, body: 'left1', gutter: '5', scroll: null, zIndex: 1 },
-                { position: 'center', body: 'center1', gutter: '5 0' }
-            ]
-        });
-        
-        layout.on('render', function() {
-            YAHOO.util.Event.onContentReady("productsandservices2", initLeftMenu);        
-        });
-        
-        layout.render();
-    });
-})();
-
-
-</script>
-
-
-
-</body>
+    </body>
 </html>

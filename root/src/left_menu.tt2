@@ -1,0 +1,120 @@
+
+    <div id="productsandservices2" class="yuimenu">
+    <div class="bd">
+        <ul class="first-of-type">
+
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/candidates') %]">Candidates</a>
+            </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/companies') %]">Companies</a>
+            </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/contacts') %]">Contacts</a>
+            </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/jobs') %]">Jobs</a>
+            </li>
+            <li class="yuimenuitem">
+                <a class="yuimenuitemlabel" href="[% c.uri_for('/logout') %]">Log out</a>
+            </li>
+
+        </ul>
+    </div>
+
+
+<script language="JavaScript">
+(function() {
+    var Dom = YAHOO.util.Dom,
+        Event = YAHOO.util.Event;
+
+        var initLeftMenu = function() {
+    var tabView = new YAHOO.widget.TabView('center1');
+                var oMenu = new YAHOO.widget.Menu("productsandservices2", { 
+                                                        position: "static", 
+                                                        hidedelay:  750, 
+                                                        lazyload: true,
+                                                            effect: { 
+                                                                effect: YAHOO.widget.ContainerEffect.FADE,
+                                                                duration: 0.25
+                                                            } 
+                                                        });
+
+/*
+We can add submenus later if we need them.
+                var aSubmenuData = [
+                
+                    {
+                        id: "communication2", 
+                        itemdata: [ 
+                            { text: "360", url: "http://360.yahoo.com" },
+                            {
+                                text: "PIM", 
+                                submenu: { 
+                                            id: "pim2", 
+                                            itemdata: [
+                                                { text: "Yahoo! Mail", url: "http://mail.yahoo.com" },
+                                                { text: "Yahoo! Notepad", url: "http://notepad.yahoo.com" }
+                                            ] 
+                                        }
+                            
+                            }, 
+                            { text: "Member Directory", url: "http://members.yahoo.com" },
+                            { text: "Flickr Photo Sharing", url: "http://www.flickr.com" },
+                        ]
+                    },
+
+                    {
+                        id: "shopping2", 
+                        itemdata: [
+                            { text: "Auctions", url: "http://auctions.shopping.yahoo.com" },
+                            { text: "Autos", url: "http://autos.yahoo.com" },
+                            { text: "Classifieds", url: "http://classifieds.yahoo.com" },
+                            { text: "Flowers & Gifts", url: "http://shopping.yahoo.com/b:Flowers%20%26%20Gifts:20146735" },
+                            { text: "Real Estate", url: "http://realestate.yahoo.com" },
+                            { text: "Travel", url: "http://travel.yahoo.com" },
+                            { text: "Wallet", url: "http://wallet.yahoo.com" },
+                            { text: "Yellow Pages", url: "http://yp.yahoo.com" }                    
+                        ]    
+                    },
+                    
+                ];
+*/
+
+                // Subscribe to the Menu instance's "beforeRender" event
+
+                oMenu.subscribe("beforeRender", function () {
+
+                    if (this.getRoot() == this) {
+
+                        this.getItem(0).cfg.setProperty("submenu", aSubmenuData[0]);
+                        this.getItem(1).cfg.setProperty("submenu", aSubmenuData[1]);
+                        this.getItem(2).cfg.setProperty("submenu", aSubmenuData[2]);
+                        this.getItem(3).cfg.setProperty("submenu", aSubmenuData[3]);
+                    }
+                });
+                
+                oMenu.render();
+        };
+
+
+    Event.onDOMReady(function() {
+        var layout = new YAHOO.widget.Layout({
+            units: [
+                { position: 'top', height: 28, body: 'top1', scroll: null, zIndex: 2 },
+                { position: 'bottom', height: 30, body: 'bottom1' },
+                { position: 'left', header: 'Menu', width: 200, body: 'left1', gutter: '5', scroll: null, zIndex: 1 },
+                { position: 'center', body: 'center1', gutter: '5', header: '[% template.title %]' }
+            ]
+        });
+        
+        layout.on('render', function() {
+            YAHOO.util.Event.onContentReady("productsandservices2", initLeftMenu);        
+        });
+        
+        layout.render();
+    });
+})();
+
+
+</script>
