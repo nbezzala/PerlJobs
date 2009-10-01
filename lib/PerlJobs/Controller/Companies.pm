@@ -56,20 +56,31 @@ sub edit : Local {
 
     # Form validated, return to the books list
     $c->flash->{status_msg} = 'Company saved';
-    $c->res->redirect($c->uri_for("/"));
+    $c->res->redirect($c->uri_for("list"));
 }
 
 
 
 =head2 index 
+Company default page. Not sure if we really need this...
+=cut
+
+sub list : Local {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{companies} = [$c->model('DB::Company')->all];
+    $c->stash->{template} = 'companies/list.tt2';
+}
+
+=head2 list 
 Lists all the companies.
 =cut
 
 sub index : Private {
     my ( $self, $c ) = @_;
 
-    $c->stash->{companies} = [$c->model('DB::Company')->all];
-    $c->stash->{template} = 'companies/list.tt2';
+    $c->res->redirect($c->uri_for("list"));
+#    $c->response->body('Matched PerlJobs::Controller::Companies in Companies.');
 }
 
 
@@ -80,7 +91,7 @@ Used for autocomplete, on Create Contact page.
 
 =cut
 
-sub list :Chained('base') :PathPart('list') :Args(0) {
+sub autocomplete :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
 
     my $qs = $c->request->params->{qs};
