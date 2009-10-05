@@ -113,13 +113,13 @@ sub autocomplete :Chained('base') :PathPart('list') :Args(0) {
     $c->response->body($return_text);
 }
 
-=head2 contacts 
+=head2 show 
 
-Lists all the contacts of the company.
+Shows all the details of the company.
 
 =cut
 
-sub contacts :Chained('base') :PathPart('contacts') :Args(1) {
+sub show :Chained('base') :PathPart('show') :Args(1) {
     my ( $self, $c, $company_id ) = @_;
 
     $c->stash->{form} = $self->form;
