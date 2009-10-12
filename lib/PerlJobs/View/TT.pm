@@ -23,7 +23,7 @@ L<PerlJobs>
 
 =head1 AUTHOR
 
-A clever guy
+Nitish Bezzala
 
 =head1 LICENSE
 
