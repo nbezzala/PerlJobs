@@ -6,7 +6,7 @@
 	<th>Company</th>
 	<th>Designation</th>
     </tr>
-    [% # Display each candidate in a table row %]
+    [% # Display each contact in a table row %]
     [% FOREACH contact IN contacts -%]
       <tr>
         <td>[% contact.id %]</td>
@@ -16,7 +16,8 @@
       </tr>
     [% END -%]
     </table>
-    
-        <p>
-      <a href="[% c.uri_for(c.controller.action_for('edit')) %]">Create a Contact</a>
-    </p>
+
+    <form action="[% c.uri_for('/contacts/edit') %]" method="POST" id="contact_form">
+      <input type="hidden" value="[% company.id %]">
+      <input type="submit" value="Create a Contact" name="create_contact" id="create_contact">
+    </form>

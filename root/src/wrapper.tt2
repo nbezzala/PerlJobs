@@ -78,8 +78,7 @@
 </html>
 
 <script language="JavaScript">
-(function() {
-})();
+
     var Dom = YAHOO.util.Dom,
         Event = YAHOO.util.Event;
 
@@ -97,5 +96,6 @@
         layout.render();
     });
 
-
+    var tabView = new YAHOO.widget.TabView('center1');
+    
 </script>

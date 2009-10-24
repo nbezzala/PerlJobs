@@ -17,10 +17,3 @@
             <p>Tab Three Content</p>
         </div>
     </div>
-
-<script language="JavaScript">
-(function() {
-
-        var tabView = new YAHOO.widget.TabView('center1');
-})();                
-</script>

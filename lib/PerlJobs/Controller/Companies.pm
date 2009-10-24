@@ -46,7 +46,7 @@ Create or edit a company.
 sub edit : Local {
     my ( $self, $c, $company_id ) = @_;
 
-    $c->stash( template => 'companies/edit.tt2',
+    $c->stash( template => 'companies/main.tt2',
                form => $self->form ); 
 
     # Validate and insert/update database 
@@ -55,7 +55,7 @@ sub edit : Local {
        schema => $c->model('DB')->schema ); 
 
     # Form validated, return to the companies list
-    $c->flash->{status_msg} = 'Company saved';
+    $c->flash->{status_msg} = 'Company saved.';
     $c->res->redirect($c->uri_for("list"));
 }
 =head2 list 
