@@ -1,39 +1,55 @@
 package PerlJobs::Schema::Result::Roles;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
-__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn", "Core");
+__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
+
+=head1 NAME
+
+PerlJobs::Schema::Result::Roles
+
+=cut
+
 __PACKAGE__->table("roles");
+
+=head1 ACCESSORS
+
+=head2 id
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 role
+
+  data_type: 'text'
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "id",
   {
-    data_type => "integer",
-    default_value => "nextval('roles_id_seq'::regclass)",
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
     is_nullable => 0,
-    size => 4,
   },
   "role",
-  {
-    data_type => "text",
-    default_value => undef,
-    is_nullable => 1,
-    size => undef,
-  },
+  { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("roles_pkey", ["id"]);
-__PACKAGE__->has_many(
-  "user_roles",
-  "PerlJobs::Schema::Result::UserRoles",
-  { "foreign.role_id" => "self.id" },
-);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-29 22:09:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1bWl4M6ko3AuUAnSKDqoYA
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-06-01 12:40:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hmpFLWUFvvGsCyxviA59BA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

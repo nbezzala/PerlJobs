@@ -2,3 +2,5 @@ blib/*
 inc/*
 Makefile
 META.yml
+lib/PerlJobs/Model/DB.pm.new
+t/model_DB.t.new
