@@ -120,4 +120,31 @@ __PACKAGE__->set_primary_key("id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_unique_constraint("candidate_pkey", ["id"]);
+__PACKAGE__->belongs_to(
+  "created_by",
+  "PerlJobs::Schema::Result::Users",
+  { id => "created_by" },
+);
+__PACKAGE__->belongs_to(
+  "user_id",
+  "PerlJobs::Schema::Result::Users",
+  { id => "user_id" },
+);
+__PACKAGE__->belongs_to(
+  "address_id",
+  "PerlJobs::Schema::Result::Address",
+  { id => "address_id" },
+);
+__PACKAGE__->belongs_to(
+  "updated_by",
+  "PerlJobs::Schema::Result::Users",
+  { id => "updated_by" },
+);
+__PACKAGE__->has_many(
+  "resumes",
+  "PerlJobs::Schema::Result::Resume",
+  { "foreign.candidate_id" => "self.id" },
+);
+
 1;

@@ -60,4 +60,11 @@ __PACKAGE__->set_primary_key("id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_unique_constraint("resume_pkey", ["id"]);
+__PACKAGE__->belongs_to(
+  "candidate_id",
+  "PerlJobs::Schema::Result::Candidate",
+  { id => "candidate_id" },
+);
+
 1;

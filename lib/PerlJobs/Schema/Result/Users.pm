@@ -112,4 +112,61 @@ __PACKAGE__->set_primary_key("id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_unique_constraint("users_pkey", ["id"]);
+__PACKAGE__->has_many(
+  "candidate_created_bies",
+  "PerlJobs::Schema::Result::Candidate",
+  { "foreign.created_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "candidate_user_ids",
+  "PerlJobs::Schema::Result::Candidate",
+  { "foreign.user_id" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "candidate_updated_bies",
+  "PerlJobs::Schema::Result::Candidate",
+  { "foreign.updated_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "company_updated_bies",
+  "PerlJobs::Schema::Result::Company",
+  { "foreign.updated_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "company_created_bies",
+  "PerlJobs::Schema::Result::Company",
+  { "foreign.created_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "contact_updated_bies",
+  "PerlJobs::Schema::Result::Contact",
+  { "foreign.updated_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "contact_created_bies",
+  "PerlJobs::Schema::Result::Contact",
+  { "foreign.created_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "contact_user_ids",
+  "PerlJobs::Schema::Result::Contact",
+  { "foreign.user_id" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "job_updated_bies",
+  "PerlJobs::Schema::Result::Job",
+  { "foreign.updated_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "job_created_bies",
+  "PerlJobs::Schema::Result::Job",
+  { "foreign.created_by" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "user_roles",
+  "PerlJobs::Schema::Result::UserRoles",
+  { "foreign.user_id" => "self.id" },
+);
+
 1;

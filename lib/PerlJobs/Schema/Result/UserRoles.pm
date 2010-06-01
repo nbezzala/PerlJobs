@@ -48,4 +48,16 @@ __PACKAGE__->set_primary_key("user_id", "role_id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_unique_constraint("user_roles_pkey", ["user_id", "role_id"]);
+__PACKAGE__->belongs_to(
+  "user_id",
+  "PerlJobs::Schema::Result::Users",
+  { id => "user_id" },
+);
+__PACKAGE__->belongs_to(
+  "role_id",
+  "PerlJobs::Schema::Result::Roles",
+  { id => "role_id" },
+);
+
 1;

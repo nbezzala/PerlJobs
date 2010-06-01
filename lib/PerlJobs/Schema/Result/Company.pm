@@ -112,5 +112,32 @@ __PACKAGE__->set_primary_key("id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_unique_constraint("company_pkey", ["id"]);
+__PACKAGE__->belongs_to(
+  "updated_by",
+  "PerlJobs::Schema::Result::Users",
+  { id => "updated_by" },
+);
+__PACKAGE__->belongs_to(
+  "created_by",
+  "PerlJobs::Schema::Result::Users",
+  { id => "created_by" },
+);
+__PACKAGE__->belongs_to(
+  "address_id",
+  "PerlJobs::Schema::Result::Address",
+  { id => "address_id" },
+);
+__PACKAGE__->has_many(
+  "company_contacts",
+  "PerlJobs::Schema::Result::CompanyContact",
+  { "foreign.company_id" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "jobs",
+  "PerlJobs::Schema::Result::Job",
+  { "foreign.company_id" => "self.id" },
+);
+
 __PACKAGE__->many_to_many(contacts => 'company_contacts', 'contact_id');
 1;

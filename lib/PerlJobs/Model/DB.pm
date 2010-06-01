@@ -7,9 +7,9 @@ __PACKAGE__->config(
     schema_class => 'PerlJobs::Schema',
     
     connect_info => {
-        dsn => 'dbi:Pg:dbname=catappdb',
+        dsn => 'dbi:mysql:dbname=perljobs',
         user => 'catappuser',
-        password => 'catalyst',
+        password => 'nitish',
     }
 );
 

@@ -88,4 +88,26 @@ __PACKAGE__->set_primary_key("id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_unique_constraint("address_pkey", ["id"]);
+__PACKAGE__->belongs_to(
+  "country",
+  "PerlJobs::Schema::Result::Country",
+  { id => "country" },
+);
+__PACKAGE__->has_many(
+  "candidates",
+  "PerlJobs::Schema::Result::Candidate",
+  { "foreign.address_id" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "companies",
+  "PerlJobs::Schema::Result::Company",
+  { "foreign.address_id" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "contacts",
+  "PerlJobs::Schema::Result::Contact",
+  { "foreign.address_id" => "self.id" },
+);
+
 1;

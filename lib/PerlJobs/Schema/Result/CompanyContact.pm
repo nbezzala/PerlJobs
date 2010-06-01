@@ -48,4 +48,16 @@ __PACKAGE__->set_primary_key("company_id", "contact_id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_unique_constraint("company_contact_pkey", ["company_id", "contact_id"]);
+__PACKAGE__->belongs_to(
+  "contact_id",
+  "PerlJobs::Schema::Result::Contact",
+  { id => "contact_id" },
+);
+__PACKAGE__->belongs_to(
+  "company_id",
+  "PerlJobs::Schema::Result::Company",
+  { id => "company_id" },
+);
+
 1;
